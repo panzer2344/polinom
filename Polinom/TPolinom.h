@@ -12,6 +12,22 @@ struct TMonom
 	TMonom(std::string str);
 };
 
+TMonom::TMonom() {
+	x = 0;
+	y = 0;
+	z = 0;
+	coeff = 0;
+}
+
+TMonom::TMonom(int _coeff, int _x, int _y, int _z) {
+	x = _x;
+	y = _y;
+	z = _z;
+	coeff = _coeff;
+}
+TMonom::TMonom(std::string str) {
+}
+
 bool operator<(const TMonom& t1, const TMonom& t2) {
 	return (t1.x * 100 + t1.y * 10 + t1.z) < (t2.x * 100 + t2.y * 10 + t2.z);
 }
@@ -23,6 +39,12 @@ bool operator>(const TMonom& t1, const TMonom& t2) {
 bool operator==(const TMonom& t1, const TMonom& t2) {
 	return (t1.coeff == t2.coeff) &&
 		((t1.x * 100 + t1.y * 10 + t1.z) == 
+		(t2.x * 100 + t2.y * 10 + t2.z));
+}
+
+bool operator!=(const TMonom& t1, const TMonom& t2) {
+	return (t1.coeff != t2.coeff) &&
+		((t1.x * 100 + t1.y * 10 + t1.z) !=
 		(t2.x * 100 + t2.y * 10 + t2.z));
 }
 
@@ -58,8 +80,11 @@ public:
 	void operator+=(TMonom &tm);
 	void operator-=(TMonom &tm);
 
-	bool operator==(TPolinom &q);
-	bool operator!=(TPolinom &q);
+	//bool operator==(TPolinom &q);
+	//bool operator!=(TPolinom &q);
+
+	friend bool operator==(const TPolinom &q, const TPolinom &p);
+	friend bool operator!=(const TPolinom &q, const TPolinom &p);
 
 	friend std::istream& operator >> (std::istream &in, TPolinom &P);
 	friend std::ostream& operator <<(std::ostream &out, TPolinom &P);

@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "../Polinom/TPolinom.h"
+#include "../Polinom/TPolinom.cpp"
 
 TEST(TPolinom, can_create_object_of_polinom_class_without_any_throw) {
 	ASSERT_NO_THROW(TPolinom());

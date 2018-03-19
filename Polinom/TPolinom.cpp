@@ -1,5 +1,21 @@
 #include "TPolinom.h"
 
+TMonom::TMonom() {
+	x = 0;
+	y = 0;
+	z = 0;
+	coeff = 0;
+}
+
+TMonom::TMonom(int _coeff, int _x, int _y, int _z) {
+	x = _x;
+	y = _y;
+	z = _z;
+	coeff = _coeff;
+}
+TMonom::TMonom(std::string str) {
+}
+
 TPolinom::TPolinom() : THeadList() {
 	pHead->value.coeff = 0;
 	pHead->value.x = pHead->value.y = pHead->value.z = -1;
@@ -21,6 +37,9 @@ TPolinom::TPolinom(TPolinom& tm) : THeadList() {
 	for (tm.Reset(); !tm.IsEnd(); tm.GoNext()) {
 		this->InsertByOrder(tm.GetCurrent());
 	}
+}
+
+TPolinom::TPolinom(std::string str) : THeadList() {
 }
 
 void TPolinom::ClearTPolinom() {}
@@ -64,6 +83,21 @@ void TPolinom::operator-=(TPolinom &q) {}
 
 void TPolinom::operator+=(TMonom &tm) {}
 void TPolinom::operator-=(TMonom &tm) {}
+
+bool TPolinom::operator==(TPolinom &q) {
+	return true;
+}
+
+bool TPolinom::operator!=(TPolinom &q) {
+	return true;
+}
+
+TMonom::TMonom(std::string str) {
+}
+
+void TPolinom::FromString(std::string str) {
+
+}
 
 std::istream& operator >> (std::istream &in, TPolinom &P) {
 	return in;

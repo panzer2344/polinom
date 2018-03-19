@@ -6,6 +6,10 @@ struct TMonom
 {
 	int coeff;
 	int x, y, z;
+
+	TMonom();
+	TMonom(int _coeff, int _x, int _y, int _z);
+	TMonom(std::string str);
 };
 
 bool operator<(const TMonom& t1, const TMonom& t2) {
@@ -27,12 +31,14 @@ public:
 	TPolinom();
 	TPolinom(TMonom *tm, int size);
 	TPolinom(TPolinom& tm);
+	TPolinom(std::string str);
 
 	void ClearTPolinom();
 
 	TPolinom& operator=(TPolinom& P);
 
 	void InsertByOrder(TMonom& tm);
+	void FromString(std::string str);
 	
 	TPolinom& operator*(const double c);
 	TPolinom& operator*(TMonom &tm);
@@ -53,10 +59,6 @@ public:
 	void operator-=(TMonom &tm);
 
 	bool operator==(TPolinom &q);
-	bool operator<(TPolinom &q);
-	bool operator>(TPolinom &q);
-	bool operator<=(TPolinom &q);
-	bool operator<=(TPolinom &q);
 	bool operator!=(TPolinom &q);
 
 	friend std::istream& operator >> (std::istream &in, TPolinom &P);

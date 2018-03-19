@@ -175,8 +175,8 @@ TEST(TPolinom, addition_of_two_polinoms_work_correctly) {
 		{ 1, 0, 1, 3 },
 		{ 5, 0, 0, 1 }
 	};
-	TMonom *tmp = tm2;
-	TPolinom tp2(tmp, 3);
+	TMonom *tmp2 = tm2;
+	TPolinom tp2(tmp2, 3);
 
 	TMonom expected[] = {
 		{ 5, 1, 1, 1 },
@@ -205,8 +205,8 @@ TEST(TPolinom, difference_of_two_polinoms_work_correctly) {
 		{ 1, 0, 1, 3 },
 		{ 5, 0, 0, 1 }
 	};
-	TMonom *tmp = tm2;
-	TPolinom tp2(tmp, 3);
+	TMonom *tmp2 = tm2;
+	TPolinom tp2(tmp2, 3);
 
 	TMonom expected[] = {
 		{ -3, 1, 1, 1 },
@@ -375,8 +375,8 @@ TEST(TPolinom, addition_with_assign_of_two_polinoms_work_correctly) {
 		{ 1, 0, 1, 3 },
 		{ 5, 0, 0, 1 }
 	};
-	TMonom *tmp = tm2;
-	TPolinom tp2(tmp, 3);
+	TMonom *tmp2 = tm2;
+	TPolinom tp2(tmp2, 3);
 
 	TMonom expected[] = {
 		{ 5, 1, 1, 1 },
@@ -407,8 +407,8 @@ TEST(TPolinom, difference_with_assign_of_two_polinoms_work_correctly) {
 		{ 1, 0, 1, 3 },
 		{ 5, 0, 0, 1 }
 	};
-	TMonom *tmp = tm2;
-	TPolinom tp2(tmp, 3);
+	TMonom *tmp2 = tm2;
+	TPolinom tp2(tmp2, 3);
 
 	TMonom expected[] = {
 		{ -3, 1, 1, 1 },
@@ -521,6 +521,178 @@ TEST(TPolinom, difference_with_assign_of_polinom_and_monom_which_have_degree_not
 	tp1 -= tm2;
 
 	EXPECT_EQ(tp1, expectedPoli);
+}
+
+TEST(TPolinom, equality_ñomparing_of_two_polinoms_return_true_when_polinoms_are_equal) {
+	TMonom tm1[] = {
+		{ 1, 1, 1, 1 },
+		{ 2, 0, 1, 2 },
+		{ 3, 0, 0, 6 }
+	};
+	TMonom *tmp = tm1;
+	TPolinom tp1(tmp, 3);
+
+	TMonom tm2[] = {
+		{ 1, 1, 1, 1 },
+		{ 2, 0, 1, 2 },
+		{ 3, 0, 0, 6 }
+	};
+	TMonom *tmp1 = tm2;
+	TPolinom tp2(tmp1, 3);
+
+	EXPECT_TRUE(tp1 == tp2);
+}
+
+TEST(TPolinom, equality_ñomparing_of_two_polinoms_return_false_when_polinoms_have_not_equal_degrees_but_equal_coeffs) {
+	TMonom tm1[] = {
+		{ 1, 1, 1, 1 },
+		{ 2, 0, 1, 2 },
+		{ 3, 0, 0, 6 }
+	};
+	TMonom *tmp = tm1;
+	TPolinom tp1(tmp, 3);
+
+	TMonom tm2[] = {
+		{ 1, 1, 1, 1 },
+		{ 2, 0, 1, 2 },
+		{ 3, 0, 0, 3 }
+	};
+	TMonom *tmp1 = tm2;
+	TPolinom tp2(tmp1, 3);
+
+	EXPECT_FALSE(tp1 == tp2);
+}
+
+TEST(TPolinom, equality_ñomparing_of_two_polinoms_return_false_when_polinoms_have_equal_degrees_but_not_equal_coeffs) {
+	TMonom tm1[] = {
+		{ 1, 1, 1, 1 },
+		{ 2, 0, 1, 2 },
+		{ 3, 0, 0, 6 }
+	};
+	TMonom *tmp = tm1;
+	TPolinom tp1(tmp, 3);
+
+	TMonom tm2[] = {
+		{ 1, 1, 1, 1 },
+		{ 2, 0, 1, 2 },
+		{ 5, 0, 0, 6 }
+	};
+	TMonom *tmp1 = tm2;
+	TPolinom tp2(tmp1, 3);
+
+	EXPECT_FALSE(tp1 == tp2);
+}
+
+TEST(TPolinom, inequality_ñomparing_of_two_polinoms_return_true_when_polinoms_are_equal) {
+	TMonom tm1[] = {
+		{ 1, 1, 1, 1 },
+		{ 2, 0, 1, 2 },
+		{ 3, 0, 0, 6 }
+	};
+	TMonom *tmp = tm1;
+	TPolinom tp1(tmp, 3);
+
+	TMonom tm2[] = {
+		{ 1, 1, 1, 1 },
+		{ 2, 0, 1, 2 },
+		{ 3, 0, 0, 6 }
+	};
+	TMonom *tmp1 = tm2;
+	TPolinom tp2(tmp1, 3);
+
+	EXPECT_FALSE(tp1 != tp2);
+}
+
+TEST(TPolinom, inequality_ñomparing_of_two_polinoms_return_true_when_polinoms_have_not_equal_degrees_but_equal_coeffs) {
+	TMonom tm1[] = {
+		{ 1, 1, 1, 1 },
+		{ 2, 0, 1, 2 },
+		{ 3, 0, 0, 6 }
+	};
+	TMonom *tmp = tm1;
+	TPolinom tp1(tmp, 3);
+
+	TMonom tm2[] = {
+		{ 1, 1, 1, 1 },
+		{ 2, 0, 1, 2 },
+		{ 3, 0, 0, 3 }
+	};
+	TMonom *tmp1 = tm2;
+	TPolinom tp2(tmp1, 3);
+
+	EXPECT_TRUE(tp1 != tp2);
+}
+
+TEST(TPolinom, inequality_ñomparing_of_two_polinoms_return_true_when_polinoms_have_equal_degrees_but_not_equal_coeffs) {
+	TMonom tm1[] = {
+		{ 1, 1, 1, 1 },
+		{ 2, 0, 1, 2 },
+		{ 3, 0, 0, 6 }
+	};
+	TMonom *tmp = tm1;
+	TPolinom tp1(tmp, 3);
+
+	TMonom tm2[] = {
+		{ 1, 1, 1, 1 },
+		{ 2, 0, 1, 2 },
+		{ 5, 0, 0, 6 }
+	};
+	TMonom *tmp1 = tm2;
+	TPolinom tp2(tmp1, 3);
+
+	EXPECT_TRUE(tp1 != tp2);
+}
+
+TEST(TPolinom, string_to_monom_function_work_correctly) {
+	std::string str = "5yz^6";
+	TMonom expectedMonom = { 5, 0, 1, 6 };
+	TMonom monom(str);
+
+	EXPECT_EQ(expectedMonom, monom);
+}
+
+TEST(TPolinom, from_string_function_work_correctly) {
+	TMonom tm1[] = {
+		{ 1, 5, 4, 0 },
+		{ 4, 3, 4, 7 },
+		{ 1, 0, 2, 6 }
+	};
+	//TMonom *tmp1 = tm1;
+	TPolinom p;
+	TPolinom expected(tm1, 3);
+	std::string str = "x^5y^4 + 4x^3y^4z^7 + 3y^2";
+	p.FromString(str);
+
+	EXPECT_EQ( p, expected );
+}
+
+TEST(TPolinom, from_string_function_work_correctly_with_string_of_unordered_monoms) {
+	TMonom tm1[] = {
+		{ 1, 5, 4, 0 },
+		{ 4, 3, 4, 7 },
+		{ 1, 0, 2, 6 }
+	};
+	//TMonom *tmp1 = tm1;
+	TPolinom p;
+	TPolinom expected(tm1, 3);
+	std::string str = "4x^3y^4z^7 + 3y^2 + x^5y^4";
+	p.FromString(str);
+
+	EXPECT_EQ(p, expected);
+}
+
+TEST(TPolinom, can_initialize_from_string_work_correctly) {
+	TMonom tm1[] = {
+		{ 1, 5, 4, 0 },
+		{ 4, 3, 4, 7 },
+		{ 1, 0, 2, 6 }
+	};
+	//TMonom *tmp1 = tm1;
+	std::string str = "x^5y^4 + 4x^3y^4z^7 + 3y^2";
+	TPolinom p(str);
+	TPolinom expected(tm1, 3);
+
+	EXPECT_EQ(p, expected);
 }
 
 

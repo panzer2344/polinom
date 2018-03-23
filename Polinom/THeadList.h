@@ -10,6 +10,7 @@ public:
 		pHead = new TLink<T>;
 		pStop = pHead;
 		pHead->pNext = pHead;
+		pCurrent = pPrev = pLast = pFirst = pStop;
 	}
 	
 	~THeadList() {

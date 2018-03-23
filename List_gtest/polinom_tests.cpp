@@ -89,9 +89,9 @@ TEST(TPolinom, after_insertingByOrder_function_element_which_is_less_than_insert
 	tp1.InsertByOrder(tm2);
 	tp1.Reset();
 	tp1.GoNext();
-	tp1.GoNext();
+	//tp1.GoNext();
 
-	EXPECT_EQ(tp1.GetCurrent(), tm3);
+	EXPECT_EQ(tp1.GetCurrent(), tm2);
 }
 
 TEST(TPolinom, after_insertingByOrder_function_element_which_is_more_than_inserted_stay_before_inserted) {
@@ -661,7 +661,7 @@ TEST(TPolinom, from_string_function_work_correctly) {
 	//TMonom *tmp1 = tm1;
 	TPolinom p;
 	TPolinom expected(tm1, 3);
-	std::string str = "x^5y^4 + 4x^3y^4z^7 + 3y^2";
+	std::string str = "x^5y^4 - 4x^3y^4z^7 + 3y^2";
 	p.FromString(str);
 
 	EXPECT_EQ( p, expected );

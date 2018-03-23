@@ -84,11 +84,16 @@ void TList<T>::InsertCurrent(const T& element) {
 		//tmp->pNext = pCurrent;
 
 		tmp->value = element;
-		tmp->pNext = pCurrent->pNext;
+		tmp->pNext = pCurrent;
 
-		if (pCurrent->pNext == pStop) pLast = tmp;
-		pPrev = pCurrent;
-		pCurrent->pNext = tmp;
+		if (pPrev != pStop) {
+			pPrev->pNext = tmp;
+		}
+		else {
+			pFirst = tmp;
+		}
+
+		if (pCurrent == pStop) pLast = tmp;
 		pCurrent = tmp;
 		size++;
 	}

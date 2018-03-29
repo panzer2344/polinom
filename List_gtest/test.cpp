@@ -33,12 +33,12 @@ TEST(TList, after_reset_current_element_is_equal_to_first) {
 	TList<int> tl;
 
 	tl.InsertFirst(5);
-	int element1 = tl.GetFirst();
+	int element1 = 10;
 	
-	tl.InsertCurrent(10);
+	tl.InsertCurrent(element1);
 	tl.Reset();
 
-	int element2 = tl.GetCurrent();
+	int element2 = tl.GetFirst();
 
 	EXPECT_EQ(element1, element2);
 }
@@ -52,12 +52,12 @@ TEST(TList, gonext_function_change_pointer_to_next_element) {
 	EXPECT_EQ(element, tl.GetCurrent());
 }
 
-TEST(TList, element_which_stay_after_current_will_stay_after_new_current_when_insert_in_current_position) {
+TEST(TList, after_inserting_in_current_position_current_element_stay_after_new_current) {
 	TList<int> tl;
 	int element = 10;
 
 	tl.InsertFirst(5);
-	tl.InsertLast(element);
+	tl.InsertCurrent(element);
 	tl.InsertCurrent(7);
 	tl.GoNext();
 
@@ -70,6 +70,7 @@ TEST(TList, element_which_stay_before_current_will_stay_before_new_current_when_
 
 	tl.InsertFirst(5);
 	tl.InsertLast(7);
+	tl.GoNext();
 	tl.InsertCurrent(element);
 	tl.Reset();
 	tl.GoNext();
@@ -109,6 +110,8 @@ TEST(TList, second_element_will_be_first_after_deleting_first_element) {
 	TList<int> tl;
 	int element = 10;
 	tl.InsertFirst(2);
+	tl.InsertLast(5);
+	tl.GoNext();
 	tl.InsertCurrent(element);
 	tl.DelFirst();
 	
@@ -119,7 +122,7 @@ TEST(TList, prelast_element_will_be_last_after_deleting_last_element) {
 	TList<int> tl;
 	int element1 = 10;
 	tl.InsertFirst(30);
-	tl.InsertCurrent(element1);
+	tl.InsertLast(element1);
 	tl.InsertLast(10);
 	tl.DelLast();
 
@@ -130,9 +133,10 @@ TEST(TList, previous_element_will_be_new_current_after_deleting_current) {
 	TList<int> tl;
 	int element = 10;
 
-	tl.InsertFirst(2);
+	tl.InsertFirst(element);
+	tl.InsertLast(10);
+	tl.GoNext();
 	tl.InsertCurrent(element);
-	tl.InsertCurrent(10);
 	tl.DelCurrent();
 
 	EXPECT_EQ(element, tl.GetCurrent());
@@ -160,9 +164,9 @@ TEST(TList, SortInput_insert_element_after_lesser_and_before_greater) {
 	TList<int> tl;
 	int element = 3;
 
-	tl.InsertCurrent(2);
-	tl.InsertCurrent(5);
 	tl.InsertCurrent(10);
+	tl.InsertCurrent(5);
+	tl.InsertCurrent(2);
 	tl.SortInput(element);
 	tl.Reset();
 	tl.GoNext();

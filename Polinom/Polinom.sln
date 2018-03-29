@@ -5,7 +5,11 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Polinom", "Polinom.vcxproj", "{F55A9C8A-A6A5-463E-80E6-8DE5355E5CE2}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "List_gtest", "..\List_gtest\List_gtest.vcxproj", "{8A8F0F4A-9D68-44F1-A83D-7005B00DDA64}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tests", "..\List_gtest\List_gtest.vcxproj", "{8A8F0F4A-9D68-44F1-A83D-7005B00DDA64}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "poly_calc", "..\poly_calc\poly_calc.vcxproj", "{9696B190-8A31-45BA-A43E-0287102EF438}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConsolePoli", "..\ConsolePoli\ConsolePoli.vcxproj", "{AF7523EC-F30C-43E3-B4ED-7B5047464511}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +35,22 @@ Global
 		{8A8F0F4A-9D68-44F1-A83D-7005B00DDA64}.Release|x64.Build.0 = Release|x64
 		{8A8F0F4A-9D68-44F1-A83D-7005B00DDA64}.Release|x86.ActiveCfg = Release|Win32
 		{8A8F0F4A-9D68-44F1-A83D-7005B00DDA64}.Release|x86.Build.0 = Release|Win32
+		{9696B190-8A31-45BA-A43E-0287102EF438}.Debug|x64.ActiveCfg = Debug|x64
+		{9696B190-8A31-45BA-A43E-0287102EF438}.Debug|x64.Build.0 = Debug|x64
+		{9696B190-8A31-45BA-A43E-0287102EF438}.Debug|x86.ActiveCfg = Debug|Win32
+		{9696B190-8A31-45BA-A43E-0287102EF438}.Debug|x86.Build.0 = Debug|Win32
+		{9696B190-8A31-45BA-A43E-0287102EF438}.Release|x64.ActiveCfg = Release|x64
+		{9696B190-8A31-45BA-A43E-0287102EF438}.Release|x64.Build.0 = Release|x64
+		{9696B190-8A31-45BA-A43E-0287102EF438}.Release|x86.ActiveCfg = Release|Win32
+		{9696B190-8A31-45BA-A43E-0287102EF438}.Release|x86.Build.0 = Release|Win32
+		{AF7523EC-F30C-43E3-B4ED-7B5047464511}.Debug|x64.ActiveCfg = Debug|x64
+		{AF7523EC-F30C-43E3-B4ED-7B5047464511}.Debug|x64.Build.0 = Debug|x64
+		{AF7523EC-F30C-43E3-B4ED-7B5047464511}.Debug|x86.ActiveCfg = Debug|Win32
+		{AF7523EC-F30C-43E3-B4ED-7B5047464511}.Debug|x86.Build.0 = Debug|Win32
+		{AF7523EC-F30C-43E3-B4ED-7B5047464511}.Release|x64.ActiveCfg = Release|x64
+		{AF7523EC-F30C-43E3-B4ED-7B5047464511}.Release|x64.Build.0 = Release|x64
+		{AF7523EC-F30C-43E3-B4ED-7B5047464511}.Release|x86.ActiveCfg = Release|Win32
+		{AF7523EC-F30C-43E3-B4ED-7B5047464511}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

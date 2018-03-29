@@ -1,10 +1,10 @@
 #pragma once
 #include "THeadList.h"
 #include "TMonom.h"
-#include <iostream>
-#include <string>
-#include <regex>
-
+//#include <iostream>
+//#include <string>
+//#include <regex>
+//#include "stdafx.h"
 
 
 class TPolinom : public THeadList<TMonom> {
@@ -20,6 +20,7 @@ public:
 
 	void InsertByOrder(TMonom& tm);
 	void FromString(std::string str);
+	std::string ToString();
 	
 	TPolinom& operator*(const double c);
 	TPolinom& operator*(TMonom &tm);

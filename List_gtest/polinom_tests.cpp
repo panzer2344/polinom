@@ -240,8 +240,9 @@ TEST(TPolinom, addition_of_polinom_and_monom_which_have_degree_equal_to_one_of_m
 	};
 	TMonom *pexpected = expected;
 	TPolinom expectedPoli(pexpected, 3);
+	TPolinom result = tp1 + tm2;
 
-	EXPECT_EQ(tp1 + tm2, expectedPoli);
+	EXPECT_EQ(result, expectedPoli);
 }
 
 TEST(TPolinom, addition_of_polinom_and_monom_which_have_degree_not_equal_to_any_of_monoms_in_polinom_work_correctly) {
@@ -655,8 +656,8 @@ TEST(TPolinom, string_to_monom_function_work_correctly) {
 TEST(TPolinom, from_string_function_work_correctly) {
 	TMonom tm1[] = {
 		{ 1, 5, 4, 0 },
-		{ 4, 3, 4, 7 },
-		{ 1, 0, 2, 6 }
+		{ -4, 3, 4, 7 },
+		{ 3, 0, 2, 0 }
 	};
 	//TMonom *tmp1 = tm1;
 	TPolinom p;
@@ -671,7 +672,7 @@ TEST(TPolinom, from_string_function_work_correctly_with_string_of_unordered_mono
 	TMonom tm1[] = {
 		{ 1, 5, 4, 0 },
 		{ 4, 3, 4, 7 },
-		{ 1, 0, 2, 6 }
+		{ 3, 0, 2, 0 }
 	};
 	//TMonom *tmp1 = tm1;
 	TPolinom p;
@@ -682,11 +683,11 @@ TEST(TPolinom, from_string_function_work_correctly_with_string_of_unordered_mono
 	EXPECT_EQ(p, expected);
 }
 
-TEST(TPolinom, can_initialize_from_string_work_correctly) {
+TEST(TPolinom, can_initialize_from_string_correctly) {
 	TMonom tm1[] = {
 		{ 1, 5, 4, 0 },
 		{ 4, 3, 4, 7 },
-		{ 1, 0, 2, 6 }
+		{ 3, 0, 2, 0 }
 	};
 	//TMonom *tmp1 = tm1;
 	std::string str = "x^5y^4 + 4x^3y^4z^7 + 3y^2";

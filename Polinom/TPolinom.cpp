@@ -1,11 +1,16 @@
+#pragma once
+//#include "stdafx.h"
 #include "TPolinom.h"
 
-TPolinom::TPolinom() : THeadList() {
+TPolinom::TPolinom() : THeadList<TMonom>() {
 	pHead->value.coeff = 0;
 	pHead->value.x = pHead->value.y = pHead->value.z = -1;
+
+	//TMonom tm(0, 0, 0, 0);
+	//InsertFirst(tm);
 }
 
-TPolinom::TPolinom(TMonom *tm, int size) : THeadList()
+TPolinom::TPolinom(TMonom *tm, int size) : THeadList<TMonom>()
 {
 	pHead->value.coeff = 0;
 	pHead->value.x = pHead->value.y = pHead->value.z = -1;
@@ -14,7 +19,7 @@ TPolinom::TPolinom(TMonom *tm, int size) : THeadList()
 		InsertByOrder(tm[i]);
 }
 
-TPolinom::TPolinom(TPolinom& tm) : THeadList() {
+TPolinom::TPolinom(TPolinom& tm) : THeadList<TMonom>() {
 	pHead->value.coeff = 0;
 	pHead->value.x = pHead->value.y = pHead->value.z = -1;
 
@@ -24,7 +29,7 @@ TPolinom::TPolinom(TPolinom& tm) : THeadList() {
 	}
 }
 
-TPolinom::TPolinom(std::string str) : THeadList() {
+TPolinom::TPolinom(std::string str) : THeadList<TMonom>() {
 	FromString(str);
 }
 
@@ -33,8 +38,8 @@ void TPolinom::ClearTPolinom() {
 		return;
 	}
 
-	for (Reset(); !IsEnd(); GoNext()) {
-		DelCurrent();
+	for (Reset(); !IsEnd(); ) {
+		DelFirst();
 	}
 }
 
@@ -44,7 +49,7 @@ TPolinom& TPolinom::operator=(TPolinom& P) {
 	}
 
 	for (P.Reset(); !P.IsEnd(); P.GoNext()) {
-		InsertCurrent(P.pCurrent->value);
+		InsertByOrder(P.pCurrent->value);
 	}
 
 	return *this;
@@ -65,7 +70,7 @@ void TPolinom::InsertByOrder(TMonom& tm) {
 			if (pCurrent->value == tm) {
 				pCurrent->value.coeff += tm.coeff;
 
-				if (pCurrent->value.coeff = 0) {
+				if (pCurrent->value.coeff == 0) {
 					DelCurrent();
 				}
 				return;
@@ -187,11 +192,23 @@ TPolinom& TPolinom::operator-(TMonom &tm) {
 }
 
 TPolinom& TPolinom::operator*=(const double c) {
-	return TPolinom();
+	for (Reset(); !IsEnd(); GoNext()) {
+		pCurrent->value.coeff *= c;
+	}
+
+	return *this;
 }
 
 TPolinom& TPolinom::operator*=(TMonom &tm) {
-	return TPolinom();
+	for (Reset(); !IsEnd(); GoNext()) {
+		pCurrent->value.coeff *= tm.coeff;
+
+		pCurrent->value.x += tm.x;
+		pCurrent->value.y += tm.y;
+		pCurrent->value.z += tm.z;
+	}
+
+	return *this;
 }
 
 TPolinom& TPolinom::operator+=(TPolinom &q) {
@@ -200,7 +217,7 @@ TPolinom& TPolinom::operator+=(TPolinom &q) {
 
 	while ((!q.IsEnd()) || (!IsEnd())) {
 		if (pCurrent->value == q.pCurrent->value) {
-			pCurrent->value.coeff = q.pCurrent->value.coeff;
+			pCurrent->value.coeff += q.pCurrent->value.coeff;
 			if (pCurrent->value.coeff == 0) {
 				DelCurrent();
 				q.GoNext();
@@ -297,7 +314,7 @@ void TPolinom::FromString(std::string str) {
 			(str[i] <= '9' && str[i] >= '0'))
 			) 
 		{
-			str[i] = '\0';
+			str[i] = ' ';
 		}
 	}
 
@@ -337,10 +354,44 @@ void TPolinom::FromString(std::string str) {
 
 }
 
+std::string TPolinom::ToString() {
+	std::string result = "";
+
+	if (IsEmpty()) {
+		result = "0";
+		return result;
+	}
+
+	for (Reset(); !IsEnd(); GoNext()) {
+		if (pCurrent != pFirst && pCurrent->value.coeff > 0) result += "+";
+		result += pCurrent->value.ToString();
+	}
+
+	return result;
+}
+
 std::istream& operator >> (std::istream &in, TPolinom &P) {
+	std::string tmp;
+
+	in >> tmp;
+	P.FromString(tmp);
+	
 	return in;
 }
+
+void PrintMonom(std::ostream &out, TMonom &tm) {
+	std::string str;
+
+	str = tm.ToString();
+	out << str;
+}
+
 std::ostream& operator <<(std::ostream &out, TPolinom &P) {
+	std::string str;
+
+	str = P.ToString();
+	out << str;
+	
 	return out;
 }
 
@@ -348,8 +399,12 @@ bool operator==(const TPolinom &q, const TPolinom &p) {
 	TLink<TMonom>* pQcur = q.pFirst;
 	TLink<TMonom>* pPcur = p.pFirst;
 
+	if (p.size != q.size) return false;
+
 	while ((pPcur != p.pStop) || (pQcur != q.pStop)) {
-		if (pQcur->value != pPcur->value) { 
+		if (pQcur->value != pPcur->value || 
+			(pQcur->value.coeff != pPcur->value.coeff))
+		{ 
 			return false;
 		}
 
@@ -362,8 +417,12 @@ bool operator!=(const TPolinom &q, const TPolinom &p) {
 	TLink<TMonom>* pQcur = q.pFirst;
 	TLink<TMonom>* pPcur = p.pFirst;
 
+	if (p.size != q.size) return true;
+
 	while ((pPcur != p.pStop) || (pQcur != q.pStop)) {
-		if (pQcur->value != pPcur->value) {
+		if (pQcur->value != pPcur->value ||
+			(pQcur->value.coeff != pPcur->value.coeff))
+		{
 			return true;
 		}
 

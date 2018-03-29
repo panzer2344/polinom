@@ -1,5 +1,6 @@
 #pragma once
 #include "tlist.h"
+//#include "stdafx.h"
 
 template<class T>
 class THeadList : public TList<T> {
@@ -36,5 +37,10 @@ public:
 	void DelLast() {
 		TList<T>::DelFirst();
 		pLast->pNext = pHead;
+	}
+
+	void Reset() {
+		TList<T>::Reset();
+		pPrev = pStop;
 	}
 };

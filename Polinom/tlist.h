@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+//#include "stdafx.h"
 
 template<class T>
 struct TLink {
@@ -74,7 +75,8 @@ void TList<T>::InsertLast(const T& element) {
 
 template<class T>
 void TList<T>::InsertCurrent(const T& element) {
-	if (size == 0 || pCurrent->pNext == pFirst) {
+	//if (size == 0 || pCurrent->pNext == pFirst) {
+	if(size == 0){
 		InsertFirst(element);
 	}
 	else {
@@ -94,6 +96,7 @@ void TList<T>::InsertCurrent(const T& element) {
 		}
 
 		if (pCurrent == pStop) pLast = tmp;
+		if (pCurrent == pFirst) pFirst = tmp;
 		pCurrent = tmp;
 		size++;
 	}
@@ -154,7 +157,7 @@ void TList<T>::DelCurrent() {
 	{
 		pPrev->pNext = pCurrent->pNext;
 		delete pCurrent;
-		pCurrent = pPrev;
+		pCurrent = pPrev->pNext;
 		size--;
 	}
 }
@@ -200,7 +203,7 @@ void TList<T>::SortInput(T element) {
 	
 	Reset();
 	while(!IsEnd()){
-		if (pCurrent->pNext->value > element) { 
+		if (pCurrent->value > element) { 
 			InsertCurrent(element);
 			return; 
 		}

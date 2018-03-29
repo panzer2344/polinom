@@ -1,8 +1,12 @@
 #pragma once
+#ifndef __TMONOM_H__
+
+#define __TMONOM_H__
+
 #include <iostream>
 #include <string>
 #include <regex>
-
+//#include "stdafx.h"
 
 struct TMonom
 {
@@ -13,6 +17,7 @@ struct TMonom
 	TMonom(int _coeff, int _x, int _y, int _z);
 	TMonom(std::string str);
 	int GetCooef(std::string &s);
+	std::string ToString();
 };
 
 TMonom::TMonom() {
@@ -58,7 +63,7 @@ TMonom::TMonom(std::string str) {
 
 	int strLen = str.length();
 
-	while (strLen != 0) {
+	while (strLen != 0 && str != "" && str != " ") {
 
 		if (str[0] == 'x') {
 			if (strLen > 1 && str[1] == '^') {
@@ -94,91 +99,34 @@ TMonom::TMonom(std::string str) {
 		strLen = str.length();
 	}
 
+}
 
+std::string TMonom::ToString() {
+	std::string result = "";
 
-	/*	int strLen = str.length();
-	std::string tmpStr = "";
-	int i = 0;
+	if (coeff > 1) { 
+		result += std::to_string(coeff);
+	}
+	if (coeff != 0) {
+		if (x > 0) result += "x";
+		if (x > 1) {
+			result += "^";
+			result += std::to_string(x);
+		}
 
-	while (i < strLen) {
-	if (!((str[i] > '0') &&
-	(str[i] < '9') ||
-	(str[i] == '^') ||
-	(str[i] == 'x') ||
-	(str[i] == 'y') ||
-	(str[i] == 'z')
-	)) str[i] = '\0';
-	i++;
-	}
+		if (y > 0) result += "y";
+		if (y > 1) {
+			result += "^";
+			result += std::to_string(y);
+		}
 
-	for (i = 0; i < strLen; i++) {
-	while ((str[i] < '9') && (str[i] > '0')) {
-	tmpStr += str[i];
-	i++;
+		if (z > 0) result += "z";
+		if (z > 1) {
+			result += "^";
+			result += std::to_string(z);
+		}
 	}
-	if (tmpStr != "") {
-	coeff = std::stoi(str);
-	tmpStr = "";
-	}
-	else {
-	coeff = 1;
-	}
-
-	if (str[i] == 'x') {
-	i++;
-	if (str[i] == '^') {
-	i++;
-	while ((str[i] < '9') && (str[i] > '0')) {
-	tmpStr += str[i];
-	i++;
-	}
-	if (tmpStr != "") {
-	x = std::stoi(str);
-	tmpStr = "";
-	}
-	}
-	else {
-	x = 1;
-	}
-	}
-
-	if (str[i] == 'y') {
-	i++;
-	if (str[i] == '^') {
-	i++;
-	while ((str[i] < '9') && (str[i] > '0')) {
-	tmpStr += str[i];
-	i++;
-	}
-	if (tmpStr != "") {
-	y = std::stoi(str);
-	tmpStr = "";
-	}
-	}
-	else {
-	y = 1;
-	}
-	}
-
-	if (str[i] == 'z') {
-	i++;
-	if (str[i] == '^') {
-	i++;
-	while ((str[i] < '9') && (str[i] > '0')) {
-	tmpStr += str[i];
-	i++;
-	}
-	if (tmpStr != "") {
-	z = std::stoi(str);
-	tmpStr = "";
-	}
-	}
-	else {
-	z = 1;
-	}
-	}
-	}
-	*/
+	return result;
 }
 
 bool operator<(const TMonom& t1, const TMonom& t2) {
@@ -190,13 +138,11 @@ bool operator>(const TMonom& t1, const TMonom& t2) {
 }
 
 bool operator==(const TMonom& t1, const TMonom& t2) {
-	return (t1.coeff == t2.coeff) &&
-		((t1.x * 100 + t1.y * 10 + t1.z) ==
-		(t2.x * 100 + t2.y * 10 + t2.z));
+	return (t1.x * 100 + t1.y * 10 + t1.z) == (t2.x * 100 + t2.y * 10 + t2.z);
 }
 
 bool operator!=(const TMonom& t1, const TMonom& t2) {
-	return (t1.coeff != t2.coeff) &&
-		((t1.x * 100 + t1.y * 10 + t1.z) !=
-		(t2.x * 100 + t2.y * 10 + t2.z));
+	return(t1.x * 100 + t1.y * 10 + t1.z) != (t2.x * 100 + t2.y * 10 + t2.z);
 }
+
+#endif // __TMONOM_H__

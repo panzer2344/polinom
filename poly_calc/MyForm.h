@@ -171,18 +171,49 @@ private: System::Void btnPlus_Click(System::Object^  sender, System::EventArgs^ 
 	std::string strArg1 = msclr::interop::marshal_as<std::string>(tbArg1->Text);
 	std::string strArg2 = msclr::interop::marshal_as<std::string>(tbArg2->Text);
 
+	if (strArg1 == "" || strArg2 == "") return;
+
 	TPolinom P(strArg1);
 	TPolinom Q(strArg2);
+	TPolinom Result;
 
-	lblResult->Text = msclr::interop::marshal_as<String^>((P + Q).ToString());
+	Result = P + Q;
+
+	std::string resultStr = Result.ToString();
+	lblResult->Text = msclr::interop::marshal_as<String^>(resultStr);
 }
 
 private: System::Void btnMinus_Click(System::Object^  sender, System::EventArgs^  e) {
-	
+	std::string strArg1 = msclr::interop::marshal_as<std::string>(tbArg1->Text);
+	std::string strArg2 = msclr::interop::marshal_as<std::string>(tbArg2->Text);
+
+	if (strArg1 == "" || strArg2 == "") return;
+
+	TPolinom P(strArg1);
+	TPolinom Q(strArg2);
+	TPolinom Result;
+
+	Result = P - Q;
+
+	std::string resultStr = Result.ToString();
+	lblResult->Text = msclr::interop::marshal_as<String^>(resultStr);
 }
 
 private: System::Void btnMulty_Click(System::Object^  sender, System::EventArgs^  e) {
-	
+	std::string strArg1 = msclr::interop::marshal_as<std::string>(tbArg1->Text);
+	std::string strArg2 = msclr::interop::marshal_as<std::string>(tbArgLittle->Text);
+
+	if (strArg1 == "" || strArg2 == "") return;
+
+	TPolinom P(strArg1);
+	TMonom Q(strArg2);
+	TPolinom Result;
+
+	Result = P * Q;
+
+	std::string resultStr = Result.ToString();
+	lblResult->Text = msclr::interop::marshal_as<String^>(resultStr);
+
 }
 
 };

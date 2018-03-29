@@ -133,7 +133,7 @@ void TList<T>::DelFirst() {
 	}
 	else {
 		TLink<T> *pOld = pFirst;
-		pFirst = pFirst->pNext;
+		pFirst = pOld->pNext;
 		delete pOld;
 		size--;
 	}
@@ -152,7 +152,10 @@ void TList<T>::DelLast() {
 
 template<class T>
 void TList<T>::DelCurrent() {
-	if (pCurrent == pFirst) DelFirst();
+	if (pCurrent == pFirst) {
+		DelFirst();
+		pCurrent = pFirst;
+	}
 	else
 	{
 		pPrev->pNext = pCurrent->pNext;

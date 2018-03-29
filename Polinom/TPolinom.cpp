@@ -30,6 +30,9 @@ TPolinom::TPolinom(TPolinom& tm) : THeadList<TMonom>() {
 }
 
 TPolinom::TPolinom(std::string str) : THeadList<TMonom>() {
+	pHead->value.coeff = 0;
+	pHead->value.x = pHead->value.y = pHead->value.z = -1;
+
 	FromString(str);
 }
 
@@ -358,7 +361,7 @@ std::string TPolinom::ToString() {
 	std::string result = "";
 
 	if (IsEmpty()) {
-		result = "0";
+		result = "0\0";
 		return result;
 	}
 
@@ -367,6 +370,7 @@ std::string TPolinom::ToString() {
 		result += pCurrent->value.ToString();
 	}
 
+	result += '\0';
 	return result;
 }
 

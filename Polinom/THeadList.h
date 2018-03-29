@@ -29,6 +29,12 @@ public:
 		pHead->pNext = pFirst;
 	}
 
+	void DelCurrent() {
+		TList<T>::DelCurrent();
+		if (pCurrent == pLast) pLast->pNext = pHead;
+		if (pCurrent == pFirst) pHead->pNext = pFirst;
+	}
+
 	void InsertLast(T element) {
 		TList<T>::InsertLast(element);
 		pLast->pNext = pHead;

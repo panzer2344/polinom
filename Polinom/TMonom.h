@@ -41,7 +41,8 @@ int TMonom::GetCooef(std::string &s) {
 	std::smatch matches;
 	if (std::regex_search(s, matches, coeffPattern)) {
 		std::string coeffStr = matches.str();
-		result = std::stoi(coeffStr);
+		if (coeffStr == "-") result = -1;
+		else result = std::stoi(coeffStr);
 		int coeffStrLength = coeffStr.length();
 		s = s.substr(coeffStrLength, s.length() - coeffStrLength);
 	}
@@ -104,9 +105,11 @@ TMonom::TMonom(std::string str) {
 std::string TMonom::ToString() {
 	std::string result = "";
 
-	if (coeff > 1) { 
+
+	if ( (coeff < -1) || (coeff > 1) || (((coeff == 1) || (coeff == -1)) && (x == 0) && (y == 0) && (z == 0))) { 
 		result += std::to_string(coeff);
 	}
+
 	if (coeff != 0) {
 		if (x > 0) result += "x";
 		if (x > 1) {
